@@ -1,0 +1,95 @@
+<?php
+$error = isset($_GET['error']) ? $_GET['error'] : "";
+?>
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | DonasiKita</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body class="auth-page">
+<main class="container auth-wrap">
+    <section class="auth-intro">
+        <div>
+            <a class="auth-brand" href="index.php">
+                <span class="brand-mark">D</span>
+                DonasiKita
+            </a>
+
+            <h1>Buat akun untuk mulai berbagi.</h1>
+            <p>Daftar sekali, lalu kamu bisa berdonasi ke berbagai campaign dan memantau semua riwayatnya.</p>
+        </div>
+
+        <div class="auth-highlights">
+            <div class="auth-highlight">
+                <strong>Gratis</strong>
+                <span>Buat akun tanpa biaya</span>
+            </div>
+            <div class="auth-highlight">
+                <strong>Mudah</strong>
+                <span>Form singkat dan jelas</span>
+            </div>
+            <div class="auth-highlight">
+                <strong>Peduli</strong>
+                <span>Dukung campaign pilihan</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="auth-card">
+        <div class="auth-card-header">
+            <div>
+                <p class="eyebrow">Akun baru</p>
+                <h2>Daftar Akun</h2>
+                <p class="mb-0">Isi data utama untuk membuat akun DonasiKita.</p>
+            </div>
+            <button type="button" class="theme-toggle" data-theme-toggle>Tema Gelap</button>
+        </div>
+
+        <?php if($error === "email"){ ?>
+            <div class="auth-alert error">Email sudah digunakan. Pakai email lain atau login saja.</div>
+        <?php } ?>
+
+        <form action="proses/register.php" method="POST">
+            <div class="mb-3">
+                <label class="form-label">Nama Lengkap</label>
+                <input type="text" name="nama" class="form-control" placeholder="Nama kamu" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" placeholder="nama@email.com" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Buat password" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">No HP</label>
+                <input type="text" name="no_hp" class="form-control" placeholder="08xxxxxxxxxx">
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Alamat</label>
+                <textarea name="alamat" class="form-control" rows="3" placeholder="Alamat singkat"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">Daftar</button>
+        </form>
+
+        <hr>
+
+        <p class="mb-0">Sudah punya akun? <a href="login.php" class="auth-link">Login</a></p>
+    </section>
+</main>
+
+<script src="assets/admin.js"></script>
+</body>
+</html>

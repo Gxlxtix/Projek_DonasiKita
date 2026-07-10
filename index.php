@@ -1,0 +1,168 @@
+<?php
+include "config/koneksi.php";
+include "config/helpers.php";
+
+$data = mysqli_query($conn,"SELECT * FROM campaign ORDER BY id_campaign DESC");
+?>
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DonasiKita</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+    background:#f5f5f5;
+}
+
+.navbar{
+    background:#198754;
+}
+
+.navbar-brand{
+    color:white!important;
+    font-weight:bold;
+}
+
+.hero{
+    background:#198754;
+    color:white;
+    padding:70px 0;
+    text-align:center;
+}
+
+.card img{
+    height:220px;
+    object-fit:cover;
+}
+
+footer{
+    background:#198754;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg">
+
+<div class="container">
+
+<a class="navbar-brand" href="#">DonasiKita</a>
+
+<div>
+
+<a href="login.php" class="btn btn-light me-2">Masuk</a>
+
+<a href="register.php" class="btn btn-warning">Daftar</a>
+
+</div>
+
+</div>
+
+</nav>
+
+<section class="hero">
+
+<div class="container">
+
+<h1>Selamat Datang di DonasiKita</h1>
+
+<p>Mari berbagi untuk membantu sesama.</p>
+
+</div>
+
+</section>
+
+<div class="container mt-5">
+
+<div class="row">
+
+<?php while($d=mysqli_fetch_assoc($data)){ ?>
+
+<div class="col-md-4 mb-4">
+
+<div class="card shadow">
+
+<img src="<?= htmlspecialchars(campaign_image($d['gambar'],"")); ?>" class="card-img-top" alt="<?= htmlspecialchars($d['judul']); ?>">
+
+<div class="card-body">
+
+<h5><?= $d['judul']; ?></h5>
+
+<p><?= substr($d['deskripsi'],0,90); ?>...</p>
+
+<p>
+
+<b>Terkumpul</b><br>
+
+Rp <?= number_format($d['dana_terkumpul']); ?>
+
+</p>
+
+<div class="progress mb-3">
+
+<?php
+$persen=0;
+
+if($d['target_dana']>0){
+    $persen=($d['dana_terkumpul']/$d['target_dana'])*100;
+}
+
+if($persen>100){
+    $persen=100;
+}
+?>
+
+<div class="progress-bar bg-success" style="width:<?= $persen ?>%"></div>
+
+</div>
+
+<p>
+
+Target :
+Rp <?= number_format($d['target_dana']); ?>
+
+</p>
+
+<a href="login.php" class="btn btn-success w-100">
+
+Donasi Sekarang
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<?php } ?>
+
+</div>
+
+</div>
+
+<footer>
+
+<p>© 2026 DonasiKita | Project Web Programming</p>
+
+</footer>
+
+</body>
+
+</html>

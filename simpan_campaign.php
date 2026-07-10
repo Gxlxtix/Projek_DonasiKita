@@ -1,0 +1,47 @@
+<?php
+include "../config/koneksi.php";
+include "../config/helpers.php";
+
+$id_user=1;
+
+$kategori=$_POST['kategori'];
+$judul=$_POST['judul'];
+$deskripsi=$_POST['deskripsi'];
+$target=$_POST['target'];
+$mulai=$_POST['mulai'];
+$selesai=$_POST['selesai'];
+
+$gambar=$_FILES['gambar']['name'];
+$tmp=$_FILES['gambar']['tmp_name'];
+$uploadDir=ensure_campaign_image_dir();
+
+if($gambar!=""){
+    move_uploaded_file($tmp,$uploadDir."/".$gambar);
+}
+
+mysqli_query($conn,"INSERT INTO campaign(
+id_user,
+id_kategori,
+judul,
+deskripsi,
+target_dana,
+dana_terkumpul,
+tanggal_mulai,
+tanggal_selesai,
+gambar,
+status
+)
+VALUES(
+'$id_user',
+'$kategori',
+'$judul',
+'$deskripsi',
+'$target',
+0,
+'$mulai',
+'$selesai',
+'$gambar',
+'Aktif'
+)");
+
+header("Location:campaign.php");
